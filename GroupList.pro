@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp 
+    mainwindow.cpp \
+    qcustomgrouplist.cpp
 
 HEADERS += \
-    mainwindow.h 
+    mainwindow.h \
+    qcustomgrouplist.h
 
 FORMS += \
     mainwindow.ui
