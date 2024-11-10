@@ -1,5 +1,64 @@
 #include "qcustomgrouplist.h"
 
+
+QCollapseButton::QCollapseButton(QWidget *parent) : QWidget(parent)
+{
+    initialize(tr("New Group"));
+}
+
+QCollapseButton::QCollapseButton(QString name, QWidget *parent) : QWidget(parent)
+{
+    initialize(name);
+}
+
+void QCollapseButton::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        m_state = !m_state;
+        emit sigClicked(m_state);
+    }
+}
+
+void QCollapseButton::initialize(QString buttonText)
+{
+    m_state = false;
+    m_mainLayout = new QHBoxLayout();
+
+    m_collapeIcon = new QLabel();
+
+    m_mainLayout->addWidget(m_collapeIcon);
+
+    m_buttonText = new QLabel();
+    m_buttonText->setText(buttonText);
+    QString _buttonColor = "#1E3287";
+    m_buttonText->setStyleSheet(QString("color: %d").arg(_buttonColor));
+    m_mainLayout->addWidget(m_buttonText);
+
+    m_line = new QFrame();
+    m_line->setFrameShape(QFrame::HLine);
+    m_line->setFrameShadow(QFrame::Sunken);
+    QString _lineColor = "#B2C1E0";
+    m_line->setStyleSheet(QString("QFrame {background-color: %1;}").arg(_lineColor));
+    m_mainLayout->addWidget(m_line);
+    setLayout(m_mainLayout);
+}
+
+void QCollapseButton::setText(const QString &text)
+{
+    m_buttonText->setText(text);
+}
+
+QCustomGroup::QCustomGroup(QWidget *parent) : QWidget(parent)
+{
+    m_toggleButton = new QCollapseButton(this);
+}
+
+void QCustomGroup::setGroupName(const QString &groupName)
+{
+
+}
+
 QCustomGroupList::QCustomGroupList(QWidget *parent) : QWidget(parent)
 {
     m_headerModel = new QStandardItemModel();
